@@ -28,7 +28,7 @@ export default class InputAnswer extends React.Component {
   render() {
     const { type } = this.props;
 
-    return type == 'text' ? this.renderInputField() : this.renderTextArea();
+    return type === 'text' ? this.renderInputField() : this.renderTextArea();
   }
 
 }

@@ -14,11 +14,14 @@ export class SurveyComponent extends React.Component {
   constructor(props) {
     super(props);
     this.handleChangeOptions = this.handleChangeOptions.bind(this);
+    this.handleCollapsible = this.handleCollapsible.bind(this);
+    this.goNext = this.goNext.bind(this);
     this.state = {
       choices: [],
       input: '',
       currentUpdate: null,
       ansError: null,
+      clickedIndex: null,
     };
   }
 
@@ -47,12 +50,12 @@ export class SurveyComponent extends React.Component {
     });
   }
 
-  handleChangeOptions(e) {
+  handleChangeOptions(e, questionIndex) {
     const updatedInput = e.target.value;
-    const { currentOptionIndex, quetions } = this.props;
-    const currentQuetion = quetions[currentOptionIndex] || {};
+    const { quetions } = this.props;
+    const currentQuetion = quetions[questionIndex] || {};
     const { question_type, multiple } = currentQuetion;
-    const { choices } = this.state;
+    const { choices } = currentQuetion;
     const selectCondition = (multiple === 'true');
     let choicesForUpdate = [];
 
@@ -69,7 +72,14 @@ export class SurveyComponent extends React.Component {
     } else if (question_type === 'text') {
       this.updateStateAfterChange({ updatedInput, choicesForUpdate: updatedInput });
     }
-    this.props.updateAnswers(currentOptionIndex, choicesForUpdate, updatedInput);
+    this.props.updateAnswers(questionIndex, choicesForUpdate, updatedInput);
+  }
+
+  handleCollapsible(userClickedIndex) {
+    const { clickedIndex } = this.state;
+    this.setState({
+      clickedIndex: userClickedIndex !== clickedIndex ? userClickedIndex : null,
+    });
   }
 
   /**
@@ -127,14 +137,14 @@ export class SurveyComponent extends React.Component {
 
   render() {
     const { currentOptionIndex, quetions, error, loading } = this.props;
-    const { choices, input, ansError } = this.state;
+    const { choices, input, ansError, clickedIndex } = this.state;
     const nextIndex = currentOptionIndex + 1;
-    const totalQuestions = quetions.length;;
-    const currentQuetion = quetions[currentOptionIndex] || {};
-    const type = currentQuetion.question_type;
-    const multiple = currentQuetion.multiple === 'true';
-    const multiline = currentQuetion.multiline === 'true';
-    const headline = currentQuetion.headline;
+    const totalQuestions = quetions.length;
+    // const currentQuetion = quetions[currentOptionIndex] || {};
+    // const type = currentQuetion.question_type;
+    // const multiple = currentQuetion.multiple === 'true';
+    // const multiline = currentQuetion.multiline === 'true';
+    // const headline = currentQuetion.headline;
 
     if (loading) {
       return (
@@ -164,41 +174,50 @@ export class SurveyComponent extends React.Component {
       <div className={classnames('landing', 'survey-container')}>
         <ErrorBoundary>
           <TransitionGroup>
-            <CSSTransition
-              key={headline}
-              timeout={500}
-              classNames="fade"
-            >
-              <Answer
-                ansError={ansError}
-                question={headline}
-                questionIndex={currentOptionIndex}
-                handleChangeOptions={this.handleChangeOptions}
-                type={type}
-                multiple={multiple}
-                multiline={multiline}
-                input={input}
-                choices={choices}
-              />
-            </CSSTransition>
+            {quetions.map((quetion, index) =>
+              <CSSTransition
+                key={quetion.headline}
+                timeout={500}
+                classNames="fade"
+              >
+                <Answer
+                  ansError={ansError}
+                  question={quetion.headline}
+                  questionIndex={index}
+                  ectiveQuestionIndex={currentOptionIndex}
+                  handleChangeOptions={this.handleChangeOptions}
+                  type={quetion.question_type}
+                  multiple={quetion.multiple}
+                  multiline={quetion.multiline}
+                  input={quetion.input}
+                  choices={quetion.choices}
+                  nextIndex={nextIndex}
+                  totalQuestions={totalQuestions}
+                  goNext={this.goNext}
+                  ansSubmitted={quetion.submitted || false}
+                  handleCollapsible={this.handleCollapsible}
+                  clickedIndex={clickedIndex}
+                />
+              </CSSTransition>
+            )}
           </TransitionGroup>
         </ErrorBoundary>
         <div className="survey-navigation">
-          <button
+          {/* <button
             disabled={currentOptionIndex === 0}
             className={classnames('button', 'previous')}
             onClick={() => this.goPrevious()}
           >
             <span className="return">&lt; Return</span>
-          </button>
+          </button> */}
 
-          <button
+          {/* <button
             disabled={nextIndex === totalQuestions}
             className={classnames('button', 'next')}
             onClick={() => this.goNext()}
           >
             <span>Next &gt;</span>
-          </button >
+          </button > */}
           <div className="blank-space-10" />
           <div className={classnames('button', 'hide', { show: nextIndex === totalQuestions })}>
             <Link

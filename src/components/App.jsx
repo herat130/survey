@@ -3,7 +3,6 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 // eslint-disable-next-line import/extensions
 import 'milligram';
 import classnames from 'classnames';
-import SurveyLanding from './SurveyLanding';
 import SurveyComponent from './SurveyComponent';
 import * as route from '../utils/survey.constant';
 import Header from './Header';
@@ -19,10 +18,9 @@ class App extends React.Component {
       <div className={classnames('wrapper')}>
         <Header />
         <Switch>
-          <Route exact path={route.HOME_PAGE} component={SurveyLanding} />
-          <Route path={route.START_SURVEY_FORM} component={SurveyComponent} />
+          <Route path={route.HOME_PAGE} component={SurveyComponent} />
           <Route path={route.VERIFY_SURVEY_FORM} component={VerifySurveyComponent} />
-          <Route path="*" component={SurveyLanding} />
+          <Route path="*" component={SurveyComponent} />
         </Switch>
         <Footer />
       </div>

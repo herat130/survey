@@ -21,8 +21,8 @@ export default function (state = initialState, action) {
       return Object.assign({}, state, { error: true, loading: false });
     case survey.UPDATE_ANSWERS:
       questions = [...state.questionnaire.questions];
-      questions[state.currentOptionIndex].choices = action.payload.choices;
-      questions[state.currentOptionIndex].input = action.payload.input;
+      questions[action.payload.index].choices = action.payload.choices;
+      questions[action.payload.index].input = action.payload.input;
       updatedQuestionnaire = Object.assign({}, state.questionnaire, { questions });
 
       return Object.assign({}, state, {
@@ -35,7 +35,11 @@ export default function (state = initialState, action) {
         state.userTravrseQuetions.push(action.payload.index)
         state.userTravrseQuetions.sort((a, b) => a - b);
       }
+      questions = [...state.questionnaire.questions];
+      questions[state.currentOptionIndex].submitted = true;
+      updatedQuestionnaire = Object.assign({}, state.questionnaire, { questions });
       return Object.assign({}, state, {
+        questionnaire: updatedQuestionnaire,
         currentOptionIndex: action.payload.index,
         userTravrseQuetions: state.userTravrseQuetions,
       });

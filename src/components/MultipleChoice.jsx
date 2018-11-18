@@ -4,7 +4,7 @@ import classnames from 'classnames';
 export default class MultipleChoice extends React.Component {
 
   renderOptions() {
-    const { choices, type } = this.props;
+    const { choices, type, questionIndex } = this.props;
     return (choices || []).map(v =>
       <React.Fragment key={v.label} >
         <div className={classnames('option-container', { 'active-container': v.selected })}>
@@ -14,7 +14,7 @@ export default class MultipleChoice extends React.Component {
             type={type}
             value={v.value}
             checked={v.selected}
-            onChange={this.props.handleChangeOptions}
+            onChange={(e) => this.props.handleChangeOptions(e,questionIndex)}
           />
           <label className="options" htmlFor={v.label}>{v.label}</label>
         </div>

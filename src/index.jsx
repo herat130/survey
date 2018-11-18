@@ -28,4 +28,4 @@ action.surveyFetch()
     </Provider>, document.getElementById('app-root'));
   }).catch(error => <ErrorPage error={error} />);
 
-global.qtn = store.getState();
+global.qtn = store.getState(); // for debugging use only

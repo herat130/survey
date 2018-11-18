@@ -1,8 +1,5 @@
 {
   "questionnaire": {
-    "id": 40,
-    "identifier": "ewBzTS",
-    "name": "Privathaftpflichtversicherung",
     "questions": [
       {
         "question_type": "multiple-choice",
@@ -489,8 +486,6 @@
         "multiline": "true",
         "jumps": []
       }
-    ],
-    "description": "Um Dein persönliches Privathaftpflichtversicherungs-Angebot zu erstellen, benötigen wir noch ein paar Informationen von Dir.",
-    "category_name_hyphenated": "Pri\u0026shy;vat\u0026shy;haft\u0026shy;pflicht"
+    ]
   }
 }

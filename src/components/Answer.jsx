@@ -1,11 +1,13 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import classnames from 'classnames';
 import MultipleChoice from './MultipleChoice';
 import InputAnswer from './InputAnswer';
+import checkInputAvailable from '../utils/common';
 
 export default class Answer extends React.Component {
 
-  renderAnsComponent() {
+  renderAnsComponent(questionIndex) {
     const { type, multiple, multiline, choices, input } = this.props;
     let componentToBeRender;
     if (type === 'multiple-choice' && choices.length > 0) {
@@ -13,6 +15,7 @@ export default class Answer extends React.Component {
       // considering multiple property false should be radio option
       componentToBeRender = <MultipleChoice
         handleChangeOptions={this.props.handleChangeOptions}
+        questionIndex={questionIndex}
         type={!multiple ? 'radio' : 'checkbox'}
         choices={choices}
       />
@@ -22,6 +25,7 @@ export default class Answer extends React.Component {
       componentToBeRender = <InputAnswer
         type={!multiline ? 'text' : 'textarea'}
         input={input}
+        questionIndex={questionIndex}
         handleChangeOptions={this.props.handleChangeOptions}
       />;
     }
@@ -29,15 +33,37 @@ export default class Answer extends React.Component {
   }
 
   render() {
-    const { question, questionIndex, ansError } = this.props;
+    const { question, questionIndex, ansError, input, ectiveQuestionIndex, nextIndex, totalQuestions, ansSubmitted, clickedIndex } = this.props;
     const oddIndex = questionIndex % 2 !== 0;
-    const eventIndex = questionIndex % 2 === 0
-    const answerComponent = this.renderAnsComponent();
+    const answerComponent = this.renderAnsComponent(questionIndex);
     return (
-      <div className={classnames("answer-container", { odd: oddIndex }, { even: eventIndex })}>
-        {ansError ? <div className="error-ans">{ansError}<div className="blank-space-10" /></div> : false}
-        <h3>{question} </h3>
-        {answerComponent}
+      <div key={questionIndex} className={classnames('', '')}>
+        <div
+          onClick={() => this.props.handleCollapsible(questionIndex)}
+          className={classnames('collapsable', 'hide', { show: checkInputAvailable(input) && ansSubmitted })}
+        >
+          <span className={classnames()}>
+            {question}
+          </span>
+          <span >
+            {input}
+          </span>
+          <span >
+            Circle
+          </span>
+        </div>
+        <div className={classnames("answer-container", 'hide', { odd: oddIndex }, { even: !oddIndex }, { show: ectiveQuestionIndex === questionIndex || questionIndex === clickedIndex })}>
+          {ansError ? <div className="error-ans">{ansError}<div className="blank-space-10" /></div> : false}
+          <h3>{question} </h3>
+          {answerComponent}
+          <button
+            disabled={nextIndex === totalQuestions}
+            className={classnames('button', 'next')}
+            onClick={() => this.props.goNext()}
+          >
+            <span>{ansSubmitted ? 'Edit' : 'Submit'} &gt;</span>
+          </button >
+        </div>
       </div>
     );
   }
