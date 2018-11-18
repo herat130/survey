@@ -10,13 +10,13 @@ export default class MultipleChoice extends React.Component {
         <div className={classnames('option-container', { 'active-container': v.selected })}>
           <input
             key={v.value}
-            id={v.label}
+            id={v.label + questionIndex}
             type={type}
             value={v.value}
             checked={v.selected}
-            onChange={(e) => this.props.handleChangeOptions(e,questionIndex)}
+            onChange={(e) => this.props.handleChangeOptions(e, questionIndex)}
           />
-          <label className="options" htmlFor={v.label}>{v.label}</label>
+          <label className="options" htmlFor={v.label + questionIndex}>{v.label}</label>
         </div>
         <div className='blank-space-10' />
       </React.Fragment>

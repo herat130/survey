@@ -59,7 +59,7 @@ export default class Answer extends React.Component {
           <button
             disabled={nextIndex === totalQuestions}
             className={classnames('button', 'next')}
-            onClick={() => this.props.goNext()}
+            onClick={(e) => this.props.goNext(e,questionIndex)}
           >
             <span>{ansSubmitted ? 'Edit' : 'Submit'} &gt;</span>
           </button >

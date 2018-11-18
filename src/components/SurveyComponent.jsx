@@ -106,10 +106,10 @@ export class SurveyComponent extends React.Component {
    * in case jumps available in current question then based on identifier choose the next question
    * else move to immediate next questions to maintain the sequence
    */
-  goNext() {
-    const { currentOptionIndex, quetions } = this.props;
+  goNext(e, questionIndex) {
+    const { quetions } = this.props;
     const { choices, input, currentUpdate } = this.state;
-    const currentQuetion = quetions[currentOptionIndex];
+    const currentQuetion = quetions[questionIndex];
 
     if (this.validateQuetions()) {
       if (currentQuetion.jumps.length > 0 && !!currentUpdate) {
@@ -120,7 +120,7 @@ export class SurveyComponent extends React.Component {
         const nextQuetionIndex = quetions.findIndex(v => v.identifier === jumpToIdentifier);
         this.props.goToNextQuetion(nextQuetionIndex, choices, input);
       } else {
-        this.props.goToNextQuetion((currentOptionIndex + 1), choices, input);
+        this.props.goToNextQuetion((questionIndex + 1), choices, input);
       }
 
       this.setState({

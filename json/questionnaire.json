@@ -39,77 +39,14 @@
       },
       {
         "question_type": "multiple-choice",
-        "identifier": "list_12111610",
-        "headline": "Bist Du Beamter oder im öffentlichen Dienst angestellt?",
-        "description": null,
-        "required": false,
-        "multiple": "false",
-        "choices": [
-          {
-            "label": "Ja",
-            "value": "Ja",
-            "selected": false
-          },
-          {
-            "label": "Nein",
-            "value": "Nein",
-            "selected": false
-          }
-        ],
-        "jumps": []
-      },
-      {
-        "question_type": "multiple-choice",
-        "identifier": "list_12111777",
-        "headline": "Möchtest Du eine Forderungsausfalldeckung absichern?",
-        "description": null,
-        "required": false,
-        "multiple": "false",
-        "choices": [
-          {
-            "label": "Ja",
-            "value": "Ja",
-            "selected": false
-          },
-          {
-            "label": "Nein",
-            "value": "Nein",
-            "selected": false
-          }
-        ],
-        "jumps": []
-      },
-      {
-        "question_type": "multiple-choice",
-        "identifier": "list_12110966",
-        "headline": "Wie wichtig ist Dir die Absicherung gegen Mietsachschäden?",
-        "description": null,
-        "required": true,
-        "multiple": "false",
-        "choices": [
-          {
-            "label": "Wichtig",
-            "value": "Wichtig",
-            "selected": false
-          },
-          {
-            "label": "Unwichtig",
-            "value": "Unwichtig",
-            "selected": false
-          }
-        ],
-        "jumps": []
-      },
-      {
-        "question_type": "multiple-choice",
         "identifier": "list_12110967",
-        "headline": "Bist Du Eigentümer einer oder mehrerer Immobilien?",
+        "headline": "JUMP?",
         "description": null,
         "required": false,
         "multiple": "false",
         "choices": [
           {
-            "label": "Ja",
+            "label": "next",
             "value": "Ja",
             "selected": false
           },
@@ -128,7 +65,7 @@
               }
             ],
             "destination": {
-              "id": "list_12110968"
+              "id": "111"
             }
           },
           {
@@ -139,14 +76,14 @@
               }
             ],
             "destination": {
-              "id": "list_12111854"
+              "id": "112"
             }
           }
         ]
       },
       {
         "question_type": "multiple-choice",
-        "identifier": "list_12110968",
+        "identifier": "111",
         "headline": "Gehört Dir eine selbstbewohnte Immobilie?",
         "description": null,
         "required": false,
@@ -208,8 +145,8 @@
       },
       {
         "question_type": "multiple-choice",
-        "identifier": "list_12111854",
-        "headline": "Möchtest Du in nächster Zeit etwas bauen oder umbauen?",
+        "identifier": "112",
+        "headline": "Jump Success?",
         "description": null,
         "required": false,
         "multiple": "false",
@@ -232,7 +169,7 @@
         "identifier": "list_12110972",
         "headline": "Wie wichtig ist Dir die Absicherung gegen beruflichen Schlüsselverlust?",
         "description": null,
-        "required": false,
+        "required": true,
         "multiple": "false",
         "choices": [
           {
@@ -391,7 +328,7 @@
       {
         "question_type": "multiple-choice",
         "identifier": "list_12111717",
-        "headline": "Hast Du aktuell schon eine Privathaftpflichtversicherung?",
+        "headline": "Jump Question?",
         "description": null,
         "required": false,
         "multiple": "false",
