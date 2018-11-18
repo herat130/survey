@@ -1,0 +1,72 @@
+@import 'variables';
+@import 'grid';
+@import 'survey';
+@import 'transition';
+
+%clearfix {
+	*zoom: 1;
+	&:before, 
+	&:after {
+			content: " ";
+			display: table;
+	}
+	&:after {
+			clear: both;
+	}
+}
+
+html,
+body{
+  height: 100%;
+  color:#548fc1;
+}
+
+*, *:after, *:before {
+	margin: 0;
+	padding: 0;
+} 
+
+input[type='radio']:hover{
+  background-color: $theme-color;
+}
+
+.header , .footer{
+  background-color: $theme-color;
+  color: #fff;
+  min-height:3em;
+}
+.header-space{
+  padding: 0.4em;
+  .header-navigation{
+    .header-link{
+      color:#fff;
+    }
+  }
+}
+.footer-fixed{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  .copyright{
+    position: absolute;
+    bottom: 0;
+  }
+}
+.text-center{
+  text-align: center;
+}
+.blank-space-10{
+  height:10px;
+  display: block;
+}
+
+.hide{
+  display: none;
+}
+.show{
+  display: inline-block;
+}
+.error-ans{
+  color:brown;
+}
