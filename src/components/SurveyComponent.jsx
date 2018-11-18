@@ -109,7 +109,13 @@ export class SurveyComponent extends React.Component {
   goNext(e, questionIndex) {
     const { quetions } = this.props;
     const { choices, input, currentUpdate } = this.state;
-    const currentQuetion = quetions[questionIndex];
+    const currentQuetion = quetions[questionIndex] || {};
+
+    if (currentQuetion.submitted) {
+      this.setState({
+        clickedIndex: null,
+      })
+    }
 
     if (this.validateQuetions()) {
       if (currentQuetion.jumps.length > 0 && !!currentUpdate) {

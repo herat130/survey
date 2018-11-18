@@ -84,7 +84,7 @@
       {
         "question_type": "multiple-choice",
         "identifier": "111",
-        "headline": "Gehört Dir eine selbstbewohnte Immobilie?",
+        "headline": "1",
         "description": null,
         "required": false,
         "multiple": "false",
@@ -115,7 +115,7 @@
       {
         "question_type": "multiple-choice",
         "identifier": "list_13907264",
-        "headline": "Hast Du eine oder mehrere vermietete Immobilien?",
+        "headline": "2",
         "description": null,
         "required": false,
         "multiple": "false",
@@ -146,7 +146,7 @@
       {
         "question_type": "multiple-choice",
         "identifier": "112",
-        "headline": "Jump Success?",
+        "headline": "3",
         "description": null,
         "required": false,
         "multiple": "false",
@@ -167,7 +167,7 @@
       {
         "question_type": "multiple-choice",
         "identifier": "list_12110972",
-        "headline": "Wie wichtig ist Dir die Absicherung gegen beruflichen Schlüsselverlust?",
+        "headline": "4?",
         "description": null,
         "required": true,
         "multiple": "false",
