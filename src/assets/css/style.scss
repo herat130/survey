@@ -24,22 +24,18 @@ body{
 *, *:after, *:before {
 	margin: 0;
 	padding: 0;
-} 
-
-input[type='radio']:hover{
-  background-color: $theme-color;
 }
 
 .header , .footer{
   background-color: $theme-color;
-  color: #fff;
+  color: $white-color;
   min-height:3em;
 }
 .header-space{
   padding: 0.4em;
   .header-navigation{
     .header-link{
-      color:#fff;
+      color:$white-color;
     }
   }
 }
@@ -74,7 +70,7 @@ input[type='radio']:hover{
   display: inline-block;
 }
 .error-ans{
-  color:brown;
+  color:$brown-color;
 }
 .bgBlue{
   background-color: $even-color;
