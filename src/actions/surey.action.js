@@ -43,6 +43,13 @@ export function updateAnswers(index, choices, input) {
   }
 }
 
+export function updateErrorMessage(index, errorMessage) {
+  return {
+    type: survey.UPDATE_ERROR_MESSAGE,
+    payload: { index, errorMessage }
+  }
+}
+
 export function clearStore() {
   return {
     type: survey.CLEAR_STORE,

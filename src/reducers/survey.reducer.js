@@ -59,7 +59,12 @@ export default function (state = initialState, action) {
       });
       questions[action.payload.clearIndex].input = '';
       updatedQuestionnaire = Object.assign({}, state.questionnaire, { questions });
-      return Object.assign({}, state, { questionnaire: updatedQuestionnaire })
+      return Object.assign({}, state, { questionnaire: updatedQuestionnaire });
+    case survey.UPDATE_ERROR_MESSAGE:
+      questions = [...state.questionnaire.questions];
+      questions[action.payload.index].error = action.payload.errorMessage;
+      updatedQuestionnaire = Object.assign({}, state.questionnaire, { questions });
+      return Object.assign({}, state, { questionnaire: updatedQuestionnaire });
     default:
       return state;
   }

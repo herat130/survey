@@ -11,14 +11,10 @@
         "multiline": false,
         "choices": [],
         "jumps": [],
-        "validation": [
-          {
-            "min": 3
-          },
-          {
-            "max": 25
-          }
-        ]
+        "validation": {
+          "min": 3,
+          "max": 25
+        }
       },
       {
         "question_type": "text",

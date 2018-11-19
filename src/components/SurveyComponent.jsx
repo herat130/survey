@@ -100,18 +100,35 @@ export class SurveyComponent extends React.Component {
    * current question's , answer is available or not
    * if not maintin the error state
    */
-  validateQuetions() {
-    const { currentOptionIndex, quetions } = this.props;
-    const currentQuetion = quetions[currentOptionIndex] || {};
-    const lastUserInput = currentQuetion.input;
+  validateQuetions(questionIndex) {
+    const { quetions } = this.props;
+    const currentQuetion = quetions[questionIndex] || {};
+    const { input: lastUserInput, required, validation, question_type } = currentQuetion;
+    let message = null;
 
-    if (currentQuetion.required && !lastUserInput) {
-      this.setState({
-        ansError: 'Please Aswer the Current Quetion',
-      });
-      return false;
+    if (required) {
+
+      if (question_type === 'text') {
+        const { min, max } = validation || {};
+        const validateInputLength = ((lastUserInput || "").trim()).length;
+        if(validateInputLength === 0){
+          message = `Mandatory question`;
+        }
+        if (min && validateInputLength < min) {
+          message = `Required Input length must atleast ${min}`;
+        }
+        if (max && validateInputLength > max) {
+          message = `Required Input length must atmost ${max}`;
+        }
+        if ((min && max) && (validateInputLength < min || validateInputLength > max)) {
+          message = `Required Input length must be in between ${min} & ${max}`;
+        }
+      } else if (question_type === 'multiple-choice' && !lastUserInput) {
+        message = 'Please Aswer the Current Quetion';
+      }
     }
-    return true;
+    this.props.updateErrorMessage(questionIndex, message);
+    return !message;
   }
 
   /**
@@ -135,7 +152,7 @@ export class SurveyComponent extends React.Component {
       nextIndex = currentOptionIndex;
     }
 
-    if (this.validateQuetions()) {
+    if (this.validateQuetions(questionIndex)) {
       if (currentQuetion.jumps.length > 0 && !!currentUpdate) {
         // check jump in case of answer exists
         const jumpIndex = (currentQuetion.jumps || [])
@@ -160,14 +177,9 @@ export class SurveyComponent extends React.Component {
 
   render() {
     const { currentOptionIndex, quetions, error, loading } = this.props;
-    const { ansError, clickedIndex } = this.state;
+    const { clickedIndex } = this.state;
     const nextIndex = currentOptionIndex + 1;
     const totalQuestions = quetions.length;
-    // const currentQuetion = quetions[currentOptionIndex] || {};
-    // const type = currentQuetion.question_type;
-    // const multiple = currentQuetion.multiple === 'true';
-    // const multiline = currentQuetion.multiline === 'true';
-    // const headline = currentQuetion.headline;
 
     if (loading) {
       return (
@@ -204,7 +216,7 @@ export class SurveyComponent extends React.Component {
                 classNames="fade"
               >
                 <Answer
-                  ansError={ansError}
+                  ansError={quetion.error}
                   question={quetion.headline}
                   questionIndex={index}
                   ectiveQuestionIndex={currentOptionIndex}
@@ -259,7 +271,8 @@ function mapDispatchToProps(dispatch) {
     surveyFetch: () => survey.surveyFetch().then(action => dispatch(action)),
     clearCurrentAns: (indexToClear) => dispatch(survey.clearCurrentAns(indexToClear)),
     goToPreviousQuetion: (currentIndex) => { dispatch(survey.goToPreviousQuetion(currentIndex)) },
-    updateAnswers: (index, choices, input) => { dispatch(survey.updateAnswers(index, choices, input)) }
+    updateAnswers: (index, choices, input) => { dispatch(survey.updateAnswers(index, choices, input)) },
+    updateErrorMessage: (index, errorMessage) => { dispatch(survey.updateErrorMessage(index, errorMessage)) }
   }
 }
 
