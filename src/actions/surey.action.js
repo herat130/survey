@@ -30,12 +30,6 @@ export function goToNextQuetion(index, choices, input, type) {
   };
 }
 
-export function goToPreviousQuetion(currentIndex) {
-  return {
-    type: survey.GO_TO_PREVIOUS_QUETION,
-    payload: currentIndex - 1,
-  };
-}
 export function updateAnswers(index, choices, input) {
   return {
     type: survey.UPDATE_ANSWERS,

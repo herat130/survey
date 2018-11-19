@@ -171,11 +171,6 @@ export class SurveyComponent extends React.Component {
     }
   }
 
-  goPrevious() {
-    const { currentOptionIndex } = this.props;
-    this.props.goToPreviousQuetion(currentOptionIndex);
-  }
-
   render() {
     const { currentOptionIndex, quetions, error, loading } = this.props;
     const { clickedIndex } = this.state;
@@ -265,7 +260,6 @@ function mapDispatchToProps(dispatch) {
     },
     surveyFetch: () => survey.surveyFetch().then(action => dispatch(action)),
     clearCurrentAns: (indexToClear) => dispatch(survey.clearCurrentAns(indexToClear)),
-    goToPreviousQuetion: (currentIndex) => { dispatch(survey.goToPreviousQuetion(currentIndex)) },
     updateAnswers: (index, choices, input) => { dispatch(survey.updateAnswers(index, choices, input)) },
     updateErrorMessage: (index, errorMessage) => { dispatch(survey.updateErrorMessage(index, errorMessage)) },
     submitForm: () => { dispatch(survey.submitForm()) },

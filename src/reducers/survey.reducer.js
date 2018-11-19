@@ -10,7 +10,6 @@ export const initialState = {
 
 export default function (state = initialState, action) {
   let questions;
-  let movingIndex;
   let updatedQuestionnaire;
   switch ((action || {}).type) {
     case survey.FETCH_START:
@@ -44,11 +43,6 @@ export default function (state = initialState, action) {
         questionnaire: updatedQuestionnaire,
         currentOptionIndex: action.payload.index,
         userTravrseQuetions: state.userTravrseQuetions,
-      });
-    case survey.GO_TO_PREVIOUS_QUETION:
-      movingIndex = state.userTravrseQuetions.findIndex(v => v === state.currentOptionIndex) - 1;
-      return Object.assign({}, state, {
-        currentOptionIndex: state.userTravrseQuetions[movingIndex],
       });
     case survey.SUBMIT_FORM:
       return Object.assign({}, state, {

@@ -27,5 +27,3 @@ action.surveyFetch()
       </HashRouter>
     </Provider>, document.getElementById('app-root'));
   }).catch(error => <ErrorPage error={error} />);
-
-global.qtn = store.getState(); // for debugging use only
