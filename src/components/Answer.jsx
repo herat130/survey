@@ -32,42 +32,62 @@ export default class Answer extends React.Component {
     return componentToBeRender;
   }
 
+  renderCollapsibleHeader() {
+    const { question, questionIndex, input, ansSubmitted, totalQuestions, nextIndex } = this.props;
+    return (
+      <div
+        onClick={() => this.props.handleCollapsible(questionIndex)}
+        className={classnames('collapsable', 'hide', { show: checkInputAvailable(input) && ansSubmitted })}
+      >
+        <span className={classnames('column-5', 'question')}>
+          {question}
+        </span>
+        <span className={classnames('column-5', 'answers')}>
+          {input}
+        </span>
+        <div className={classnames("dot", "bgBlue", 'column-2', { bgGreen: nextIndex > totalQuestions })} />
+      </div>
+    )
+  }
+
+  renderSubmitEdit() {
+    const { questionIndex, ansSubmitted } = this.props;
+    return (
+      <button
+        className={classnames('button', 'next')}
+        onClick={(e) => this.props.goNext(e, questionIndex)}
+      >
+        <span>{ansSubmitted ? 'Edit' : 'Submit'} &gt;</span>
+      </button >
+    )
+  }
+
+  renderClear() {
+    const { questionIndex } = this.props;
+    return (
+      <button
+        className={classnames('button', 'clear-button')}
+        onClick={(e) => this.props.clearCurrentAns(e, questionIndex)}
+      >
+        <span>Clear</span>
+      </button >
+    )
+  }
+
   render() {
-    const { question, questionIndex, ansError, input, ectiveQuestionIndex, ansSubmitted, clickedIndex, totalQuestions, nextIndex } = this.props;
+    const { question, questionIndex, ansError, ectiveQuestionIndex, clickedIndex } = this.props;
     const oddIndex = questionIndex % 2 !== 0;
-    const answerComponent = this.renderAnsComponent(questionIndex);
     return (
       <div key={questionIndex} className={classnames({}, '')}>
-        <div
-          onClick={() => this.props.handleCollapsible(questionIndex)}
-          className={classnames('collapsable', 'hide', { show: checkInputAvailable(input) && ansSubmitted })}
-        >
-          <span className={classnames('column-5')}>
-            {question}
-          </span>
-          <span className={classnames('column-5', 'text-center')}>
-            {input}
-          </span>
-          <div className={classnames("dot", "bgBlue", 'column-2', { bgGreen: nextIndex > totalQuestions })} />
-        </div>
+        {this.renderCollapsibleHeader()}
         <div
           className={classnames("answer-container", 'hide', { odd: oddIndex }, { even: !oddIndex },
             { show: (clickedIndex === 0 || clickedIndex) ? questionIndex === clickedIndex : ectiveQuestionIndex === questionIndex })}>
           {ansError ? <div className="error-ans">{ansError}<div className="blank-space-10" /></div> : false}
           <h3>{question} </h3>
-          {answerComponent}
-          <button
-            className={classnames('button', 'next')}
-            onClick={(e) => this.props.goNext(e, questionIndex)}
-          >
-            <span>{ansSubmitted ? 'Edit' : 'Submit'} &gt;</span>
-          </button >
-          <button
-            className={classnames('button', 'clear-button')}
-            onClick={(e) => this.props.clearCurrentAns(e, questionIndex)}
-          >
-            <span>Clear</span>
-          </button >
+          {this.renderAnsComponent(questionIndex)}
+          {this.renderSubmitEdit()}
+          {this.renderClear()}
         </div>
       </div>
     );
