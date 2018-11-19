@@ -4,9 +4,6 @@ export default {
   userTravrseQuetions: [],
   currentOptionIndex: 0,
   questionnaire: {
-    id: 40,
-    identifier: "ewBzTS",
-    name: "Privathaftpflichtversicherung",
     questions: []
   }
 }
