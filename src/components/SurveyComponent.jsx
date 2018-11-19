@@ -111,7 +111,7 @@ export class SurveyComponent extends React.Component {
       if (question_type === 'text') {
         const { min, max } = validation || {};
         const validateInputLength = ((lastUserInput || "").trim()).length;
-        if(validateInputLength === 0){
+        if (validateInputLength === 0) {
           message = `Mandatory question`;
         }
         if (min && validateInputLength < min) {
@@ -208,35 +208,27 @@ export class SurveyComponent extends React.Component {
     return (
       <div className={classnames('landing', 'survey-container')}>
         <ErrorBoundary>
-          <TransitionGroup>
-            {quetions.map((quetion, index) =>
-              <CSSTransition
-                key={quetion.headline}
-                timeout={500}
-                classNames="fade"
-              >
-                <Answer
-                  ansError={quetion.error}
-                  question={quetion.headline}
-                  questionIndex={index}
-                  ectiveQuestionIndex={currentOptionIndex}
-                  handleChangeOptions={this.handleChangeOptions}
-                  type={quetion.question_type}
-                  multiple={quetion.multiple}
-                  multiline={quetion.multiline}
-                  input={quetion.input}
-                  choices={quetion.choices}
-                  nextIndex={nextIndex}
-                  totalQuestions={totalQuestions}
-                  goNext={this.goNext}
-                  ansSubmitted={quetion.submitted || false}
-                  handleCollapsible={this.handleCollapsible}
-                  clickedIndex={clickedIndex}
-                  clearCurrentAns={this.clearCurrentAns}
-                />
-              </CSSTransition>
-            )}
-          </TransitionGroup>
+          {quetions.map((quetion, index) =>
+            <Answer
+              ansError={quetion.error}
+              question={quetion.headline}
+              questionIndex={index}
+              ectiveQuestionIndex={currentOptionIndex}
+              handleChangeOptions={this.handleChangeOptions}
+              type={quetion.question_type}
+              multiple={quetion.multiple}
+              multiline={quetion.multiline}
+              input={quetion.input}
+              choices={quetion.choices}
+              nextIndex={nextIndex}
+              totalQuestions={totalQuestions}
+              goNext={this.goNext}
+              ansSubmitted={quetion.submitted || false}
+              handleCollapsible={this.handleCollapsible}
+              clickedIndex={clickedIndex}
+              clearCurrentAns={this.clearCurrentAns}
+            />
+          )}
         </ErrorBoundary>
         <div className="survey-navigation">
           <div className="blank-space-10" />

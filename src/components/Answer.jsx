@@ -33,7 +33,7 @@ export default class Answer extends React.Component {
   }
 
   renderCollapsibleHeader() {
-    const { question, questionIndex, input, ansSubmitted, totalQuestions, nextIndex } = this.props;
+    const { question, questionIndex, input, ansSubmitted, totalQuestions, nextIndex, choices } = this.props;
     return (
       <div
         onClick={() => this.props.handleCollapsible(questionIndex)}
@@ -43,7 +43,7 @@ export default class Answer extends React.Component {
           {question}
         </span>
         <span className={classnames('column-5', 'answers')}>
-          {input}
+          {(choices || []).length > 0 ? choices.filter(v => v.selected).map(v => v.label).join(',') : input}
         </span>
         <div className={classnames("dot", "bgBlue", 'column-2', { bgGreen: nextIndex > totalQuestions })} />
       </div>
@@ -80,6 +80,7 @@ export default class Answer extends React.Component {
     return (
       <div key={questionIndex} className={classnames({}, '')}>
         {this.renderCollapsibleHeader()}
+        <div className="blank-space-10" />
         <div
           className={classnames("answer-container", 'hide', { odd: oddIndex }, { even: !oddIndex },
             { show: (clickedIndex === 0 || clickedIndex) ? questionIndex === clickedIndex : ectiveQuestionIndex === questionIndex })}>

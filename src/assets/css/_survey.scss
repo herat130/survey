@@ -208,11 +208,12 @@
   position: relative;
   height: 100%;
   .collapsable{
-    padding:0.2em;
-    color:$theme-font-color;
-    border: 1px solid $theme-color;
-    width:100%;
-    font-size: 18px;
+    padding: 0.2em;
+    color: #00000099;
+    border: 1px solid $gray-color;
+    border-radius: 2%;
+    width: 100%;
+    cursor: pointer;
     font-weight: bold;
     .question, .answers{
       white-space: nowrap;
