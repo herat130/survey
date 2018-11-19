@@ -107,14 +107,19 @@ export class SurveyComponent extends React.Component {
    * else move to immediate next questions to maintain the sequence
    */
   goNext(e, questionIndex) {
-    const { quetions } = this.props;
+    const { quetions, currentOptionIndex } = this.props;
     const { choices, input, currentUpdate } = this.state;
     const currentQuetion = quetions[questionIndex] || {};
+    let nextIndex = questionIndex + 1;
+    let type;
 
+    /** in case of edit and submit */
     if (currentQuetion.submitted) {
       this.setState({
         clickedIndex: null,
       })
+      type = 'edit';
+      nextIndex = currentOptionIndex;
     }
 
     if (this.validateQuetions()) {
@@ -123,11 +128,10 @@ export class SurveyComponent extends React.Component {
         const jumpIndex = (currentQuetion.jumps || [])
           .findIndex(v => v.conditions.find(iv => iv.value === currentUpdate))
         const jumpToIdentifier = currentQuetion.jumps[jumpIndex].destination.id;
-        const nextQuetionIndex = quetions.findIndex(v => v.identifier === jumpToIdentifier);
-        this.props.goToNextQuetion(nextQuetionIndex, choices, input);
-      } else {
-        this.props.goToNextQuetion((questionIndex + 1), choices, input);
+        nextIndex = quetions.findIndex(v => v.identifier === jumpToIdentifier);
       }
+
+      this.props.goToNextQuetion(nextIndex, choices, input, type);
 
       this.setState({
         ansError: null,
@@ -250,8 +254,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    goToNextQuetion: (index, choices, input) => {
-      dispatch(survey.goToNextQuetion(index, choices, input))
+    goToNextQuetion: (index, choices, input, type) => {
+      dispatch(survey.goToNextQuetion(index, choices, input, type))
     },
     goToPreviousQuetion: (currentIndex) => { dispatch(survey.goToPreviousQuetion(currentIndex)) },
     updateAnswers: (index, choices, input) => { dispatch(survey.updateAnswers(index, choices, input)) }

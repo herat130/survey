@@ -42,22 +42,19 @@ export default class Answer extends React.Component {
           onClick={() => this.props.handleCollapsible(questionIndex)}
           className={classnames('collapsable', 'hide', { show: checkInputAvailable(input) && ansSubmitted })}
         >
-          <span className={classnames()}>
+          <span className={classnames('column-5')}>
             {question}
           </span>
-          <span >
+          <span className={classnames('column-5','text-center')}>
             {input}
           </span>
-          <span >
-            Circle {`Click index : ${clickedIndex} Question Index : ${questionIndex}`}
-          </span>
+          <div className={classnames("dot","bg-blue",'column-2')} />
         </div>
         <div
           className={classnames("answer-container", 'hide', { odd: oddIndex }, { even: !oddIndex },
             { show: (clickedIndex === 0 || clickedIndex) ? questionIndex === clickedIndex : ectiveQuestionIndex === questionIndex })}>
           {ansError ? <div className="error-ans">{ansError}<div className="blank-space-10" /></div> : false}
           <h3>{question} </h3>
-          {`Click index : ${clickedIndex} Question Index : ${questionIndex}`}
           {answerComponent}
           <button
             disabled={nextIndex === totalQuestions}

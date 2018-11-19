@@ -56,6 +56,12 @@ input[type='radio']:hover{
 .text-center{
   text-align: center;
 }
+.text-left{
+  text-align: left;
+}
+.text-right{
+  text-align: right;
+}
 .blank-space-10{
   height:10px;
   display: block;
@@ -69,4 +75,7 @@ input[type='radio']:hover{
 }
 .error-ans{
   color:brown;
+}
+.bg-blue{
+  background-color: $even-color;
 }

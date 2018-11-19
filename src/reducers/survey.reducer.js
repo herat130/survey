@@ -36,7 +36,9 @@ export default function (state = initialState, action) {
         state.userTravrseQuetions.sort((a, b) => a - b);
       }
       questions = [...state.questionnaire.questions];
-      questions[state.currentOptionIndex].submitted = true;
+      if (!action.payload.type) {
+        questions[state.currentOptionIndex].submitted = true;
+      }
       updatedQuestionnaire = Object.assign({}, state.questionnaire, { questions });
       return Object.assign({}, state, {
         questionnaire: updatedQuestionnaire,

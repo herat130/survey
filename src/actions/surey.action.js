@@ -23,10 +23,10 @@ export const surveyFetch = () => fetchWrapper('http://localhost:9000/json/questi
   .then(response => surveyFetchSuccess(response))
   .catch(error => surveyFetchFail(error.message))
 
-export function goToNextQuetion(index, choices, input) {
+export function goToNextQuetion(index, choices, input,type) {
   return {
     type: survey.GO_TO_NEXT_QUETION,
-    payload: { index, choices, input },
+    payload: { index, choices, input, type },
   };
 }
 

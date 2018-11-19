@@ -203,12 +203,23 @@
 .survey-container{
   position: relative;
   height: 100%;
+  .collapsable{
+    padding:0.2em;
+    color:$theme-font-color;
+    border: 1px solid $theme-color;
+    width:100%;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .dot{
+    float:right;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+  }
   .answer-container{
-    // position: absolute;
-    // left: 0%;
-    // top: 0%;
     width: 100%;
-    padding: 2em 3em;
+    padding: 2em 1em;
   }
   .odd{
     color: $odd-color;
@@ -216,11 +227,5 @@
   .even{
     color: $even-color;
   }
-  .survey-navigation{
-    position: absolute;
-    bottom: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-  }
+  
 }
