@@ -2,6 +2,7 @@ export const FETCH_START = 'survey_fetch_start';
 export const FETCH_SUCCESS = 'survey_fetch_success';
 export const FETCH_FAIL = 'survey_fetch_fail';
 export const SUBMIT_FORM = 'submit_form_and_clear_reducer';
+export const CLEAR_ANSWER = 'clear_answer'
 
 export const START_SURVEY_FORM = '/start-survey';
 export const VERIFY_SURVEY_FORM = '/verify-survey';

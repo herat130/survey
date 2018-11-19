@@ -33,7 +33,7 @@ export default class Answer extends React.Component {
   }
 
   render() {
-    const { question, questionIndex, ansError, input, ectiveQuestionIndex, nextIndex, totalQuestions, ansSubmitted, clickedIndex } = this.props;
+    const { question, questionIndex, ansError, input, ectiveQuestionIndex, ansSubmitted, clickedIndex, totalQuestions, nextIndex } = this.props;
     const oddIndex = questionIndex % 2 !== 0;
     const answerComponent = this.renderAnsComponent(questionIndex);
     return (
@@ -45,10 +45,10 @@ export default class Answer extends React.Component {
           <span className={classnames('column-5')}>
             {question}
           </span>
-          <span className={classnames('column-5','text-center')}>
+          <span className={classnames('column-5', 'text-center')}>
             {input}
           </span>
-          <div className={classnames("dot","bg-blue",'column-2')} />
+          <div className={classnames("dot", "bgBlue", 'column-2', { bgGreen: nextIndex > totalQuestions })} />
         </div>
         <div
           className={classnames("answer-container", 'hide', { odd: oddIndex }, { even: !oddIndex },
@@ -57,11 +57,16 @@ export default class Answer extends React.Component {
           <h3>{question} </h3>
           {answerComponent}
           <button
-            disabled={nextIndex === totalQuestions}
             className={classnames('button', 'next')}
             onClick={(e) => this.props.goNext(e, questionIndex)}
           >
             <span>{ansSubmitted ? 'Edit' : 'Submit'} &gt;</span>
+          </button >
+          <button
+            className={classnames('button', 'clear-button')}
+            onClick={(e) => this.props.clearCurrentAns(e, questionIndex)}
+          >
+            <span>Clear</span>
           </button >
         </div>
       </div>

@@ -2,6 +2,36 @@
   "questionnaire": {
     "questions": [
       {
+        "question_type": "text",
+        "identifier": "list_12110962",
+        "headline": "Whats your name?",
+        "description": null,
+        "required": true,
+        "multiple": "false",
+        "multiline": false,
+        "choices": [],
+        "jumps": [],
+        "validation": [
+          {
+            "min": 3
+          },
+          {
+            "max": 25
+          }
+        ]
+      },
+      {
+        "question_type": "text",
+        "identifier": "list_12110962",
+        "headline": "Add some details about you",
+        "description": null,
+        "required": true,
+        "multiple": "false",
+        "multiline": "true",
+        "choices": [],
+        "jumps": []
+      },
+      {
         "question_type": "multiple-choice",
         "identifier": "list_12110962",
         "headline": "Wen möchtest Du versichern?",
@@ -206,7 +236,6 @@
         ],
         "jumps": []
       }
-      
     ]
   }
 }

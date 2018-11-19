@@ -186,19 +186,23 @@
   }
 }
 
-.next ,.previous{
+.next {
   transition: all .5s ease-in-out;
   background-image: linear-gradient(to left, #9b4dca 50%, #e1bbf1 50%);
   background-size: 200% 100%;
   background-position: 100% top, 100% top;
 }
-.next:not(:disabled):hover,.previous:not(:disabled):hover{
+.next:not(:disabled):hover{
   @extend .effects-container;
   animation: hvr-wobble-skew 2s ease .2s;
   span{
     position: relative;
     animation-name: shift-text 1s ease infinite;    
   }
+}
+
+.clear-button{
+  margin-left:1em;
 }
 .survey-container{
   position: relative;
@@ -219,7 +223,7 @@
   }
   .answer-container{
     width: 100%;
-    padding: 2em 1em;
+    padding: 2em 0em;
   }
   .odd{
     color: $odd-color;

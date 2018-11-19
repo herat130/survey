@@ -23,7 +23,7 @@ export const surveyFetch = () => fetchWrapper('http://localhost:9000/json/questi
   .then(response => surveyFetchSuccess(response))
   .catch(error => surveyFetchFail(error.message))
 
-export function goToNextQuetion(index, choices, input,type) {
+export function goToNextQuetion(index, choices, input, type) {
   return {
     type: survey.GO_TO_NEXT_QUETION,
     payload: { index, choices, input, type },
@@ -47,6 +47,13 @@ export function clearStore() {
   return {
     type: survey.CLEAR_STORE,
   }
+}
+
+export function clearCurrentAns(clearIndex) {
+  return {
+    type: survey.CLEAR_ANSWER,
+    payload: { clearIndex },
+  };
 }
 
 export function submitForm() {

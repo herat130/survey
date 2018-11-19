@@ -15,6 +15,7 @@ export class SurveyComponent extends React.Component {
     super(props);
     this.handleChangeOptions = this.handleChangeOptions.bind(this);
     this.handleCollapsible = this.handleCollapsible.bind(this);
+    this.clearCurrentAns = this.clearCurrentAns.bind(this);
     this.goNext = this.goNext.bind(this);
     this.state = {
       choices: [],
@@ -28,6 +29,13 @@ export class SurveyComponent extends React.Component {
   componentWillMount() {
     const { currentOptionIndex, quetions } = this.props;
     this.currentQuestion(quetions, currentOptionIndex);
+  }
+
+  componentDidMount() {
+    const { loading } = this.props;
+    if (loading) {
+      this.props.surveyFetch()
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -80,6 +88,11 @@ export class SurveyComponent extends React.Component {
     this.setState({
       clickedIndex: userClickedIndex !== clickedIndex ? userClickedIndex : null,
     });
+  }
+
+  clearCurrentAns(event, clearIndex) {
+    this.props.clearCurrentAns(clearIndex);
+    event.preventDefault();
   }
 
   /**
@@ -147,7 +160,7 @@ export class SurveyComponent extends React.Component {
 
   render() {
     const { currentOptionIndex, quetions, error, loading } = this.props;
-    const { choices, input, ansError, clickedIndex } = this.state;
+    const { ansError, clickedIndex } = this.state;
     const nextIndex = currentOptionIndex + 1;
     const totalQuestions = quetions.length;
     // const currentQuetion = quetions[currentOptionIndex] || {};
@@ -207,29 +220,15 @@ export class SurveyComponent extends React.Component {
                   ansSubmitted={quetion.submitted || false}
                   handleCollapsible={this.handleCollapsible}
                   clickedIndex={clickedIndex}
+                  clearCurrentAns={this.clearCurrentAns}
                 />
               </CSSTransition>
             )}
           </TransitionGroup>
         </ErrorBoundary>
         <div className="survey-navigation">
-          {/* <button
-            disabled={currentOptionIndex === 0}
-            className={classnames('button', 'previous')}
-            onClick={() => this.goPrevious()}
-          >
-            <span className="return">&lt; Return</span>
-          </button> */}
-
-          {/* <button
-            disabled={nextIndex === totalQuestions}
-            className={classnames('button', 'next')}
-            onClick={() => this.goNext()}
-          >
-            <span>Next &gt;</span>
-          </button > */}
           <div className="blank-space-10" />
-          <div className={classnames('button', 'hide', { show: nextIndex === totalQuestions })}>
+          <div className={classnames('button', 'hide', { show: nextIndex > totalQuestions })}>
             <Link
               className={classnames('submit')}
               to={VERIFY_SURVEY_FORM}
@@ -257,6 +256,8 @@ function mapDispatchToProps(dispatch) {
     goToNextQuetion: (index, choices, input, type) => {
       dispatch(survey.goToNextQuetion(index, choices, input, type))
     },
+    surveyFetch: () => survey.surveyFetch().then(action => dispatch(action)),
+    clearCurrentAns: (indexToClear) => dispatch(survey.clearCurrentAns(indexToClear)),
     goToPreviousQuetion: (currentIndex) => { dispatch(survey.goToPreviousQuetion(currentIndex)) },
     updateAnswers: (index, choices, input) => { dispatch(survey.updateAnswers(index, choices, input)) }
   }

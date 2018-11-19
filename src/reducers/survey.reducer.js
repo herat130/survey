@@ -52,6 +52,14 @@ export default function (state = initialState, action) {
       });
     case survey.SUBMIT_FORM:
       return Object.assign({}, initialState);
+    case survey.CLEAR_ANSWER:
+      questions = [...state.questionnaire.questions];
+      questions[action.payload.clearIndex].choices = questions[action.payload.clearIndex].choices.map(v => {
+        return Object.assign({}, v, { selected: false })
+      });
+      questions[action.payload.clearIndex].input = '';
+      updatedQuestionnaire = Object.assign({}, state.questionnaire, { questions });
+      return Object.assign({}, state, { questionnaire: updatedQuestionnaire })
     default:
       return state;
   }

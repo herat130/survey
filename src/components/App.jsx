@@ -18,8 +18,8 @@ class App extends React.Component {
       <div className={classnames('wrapper')}>
         <Header />
         <Switch>
-          <Route path={route.HOME_PAGE} component={SurveyComponent} />
           <Route path={route.VERIFY_SURVEY_FORM} component={VerifySurveyComponent} />
+          <Route path={route.HOME_PAGE} component={SurveyComponent} />
           {/* <Route path="*" component={SurveyComponent} /> */}
         </Switch>
         <Footer />
