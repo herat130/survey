@@ -5,7 +5,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import SurveyComponentConnected from '../SurveyComponent';
-import data, { questions, questions3 } from '../__mocks__/survey.data';
+import data, { questions } from '../__mocks__/survey.data';
 
 configure({ adapter: new Adapter() });
 
