@@ -3,11 +3,11 @@
     "questions": [
       {
         "question_type": "text",
-        "identifier": "list_12110962",
+        "identifier": "list_12110961",
         "headline": "Whats your name?",
         "description": null,
         "required": true,
-        "multiple": "false",
+        "multiple": false,
         "multiline": false,
         "choices": [],
         "jumps": [],
@@ -18,67 +18,31 @@
       },
       {
         "question_type": "text",
-        "identifier": "list_12110962",
-        "headline": "Add some details about you",
+        "identifier": "list_12110963",
+        "headline": "about you?",
         "description": null,
-        "required": true,
-        "multiple": "false",
+        "required": false,
+        "multiple": false,
         "multiline": "true",
         "choices": [],
         "jumps": []
       },
       {
         "question_type": "multiple-choice",
-        "identifier": "list_12110962",
-        "headline": "Wen möchtest Du versichern?",
-        "description": null,
-        "required": true,
-        "multiple": "true",
-        "choices": [
-          {
-            "label": "Meine Familie mit Kindern",
-            "value": "Meine Familie mit Kindern",
-            "selected": false
-          },
-          {
-            "label": "Meine Familie ohne Kinder",
-            "value": "Meine Familie ohne Kinder",
-            "selected": false
-          },
-          {
-            "label": "Mich ohne Kind",
-            "value": "Mich ohne Kind",
-            "selected": false
-          },
-          {
-            "label": "Mich mit Kind",
-            "value": "Mich mit Kind",
-            "selected": false
-          },
-          {
-            "label": "Mich und meinen Lebenspartner",
-            "value": "Mich und meinen Lebenspartner",
-            "selected": false
-          }
-        ],
-        "jumps": []
-      },
-      {
-        "question_type": "multiple-choice",
         "identifier": "list_12110967",
-        "headline": "JUMP?",
+        "headline": "Do You already have an insurance?",
         "description": null,
         "required": false,
-        "multiple": "false",
+        "multiple": false,
         "choices": [
           {
-            "label": "next",
-            "value": "Ja",
+            "label": "yes",
+            "value": "yes",
             "selected": false
           },
           {
-            "label": "Nein",
-            "value": "Nein",
+            "label": "no",
+            "value": "no",
             "selected": false
           }
         ],
@@ -87,146 +51,86 @@
             "conditions": [
               {
                 "field": "list_12110967",
-                "value": "Ja"
+                "value": "yes"
               }
             ],
             "destination": {
-              "id": "111"
+              "id": "list_12110962"
             }
           },
           {
             "conditions": [
               {
                 "field": "list_12110967",
-                "value": "Nein"
+                "value": "no"
               }
             ],
             "destination": {
-              "id": "112"
+              "id": "list_12110964"
             }
           }
         ]
       },
       {
         "question_type": "multiple-choice",
-        "identifier": "111",
-        "headline": "1",
-        "description": null,
-        "required": false,
-        "multiple": "false",
-        "choices": [
-          {
-            "label": "Ja, im Inland",
-            "value": "Ja, im Inland",
-            "selected": false
-          },
-          {
-            "label": "Ja, im Ausland",
-            "value": "Ja, im Ausland",
-            "selected": false
-          },
-          {
-            "label": "Ja, im Inland und Ausland",
-            "value": "Ja, im Inland und Ausland",
-            "selected": false
-          },
-          {
-            "label": "Nein",
-            "value": "Nein",
-            "selected": false
-          }
-        ],
-        "jumps": []
-      },
-      {
-        "question_type": "multiple-choice",
-        "identifier": "list_13907264",
-        "headline": "2",
-        "description": null,
-        "required": false,
-        "multiple": "false",
-        "choices": [
-          {
-            "label": "Ja, im Inland",
-            "value": "Ja, im Inland",
-            "selected": false
-          },
-          {
-            "label": "Ja, im Ausland",
-            "value": "Ja, im Ausland",
-            "selected": false
-          },
-          {
-            "label": "Ja, im Inland und Ausland",
-            "value": "Ja, im Inland und Ausland",
-            "selected": false
-          },
-          {
-            "label": "Nein",
-            "value": "Nein",
-            "selected": false
-          }
-        ],
-        "jumps": []
-      },
-      {
-        "question_type": "multiple-choice",
-        "identifier": "112",
-        "headline": "3",
-        "description": null,
-        "required": false,
-        "multiple": "false",
-        "choices": [
-          {
-            "label": "Ja",
-            "value": "Ja",
-            "selected": false
-          },
-          {
-            "label": "Nein",
-            "value": "Nein",
-            "selected": false
-          }
-        ],
-        "jumps": []
-      },
-      {
-        "question_type": "multiple-choice",
-        "identifier": "list_12110972",
-        "headline": "Wie wichtig ist Dir die Absicherung gegen beruflichen Schlüsselverlust?",
+        "identifier": "list_12110962",
+        "headline": "What insurance Do you have?",
         "description": null,
         "required": true,
-        "multiple": "false",
+        "multiple": true,
         "choices": [
           {
-            "label": "Wichtig",
-            "value": "Wichtig",
+            "label": "LIABILITY",
+            "value": "LIABILITY",
             "selected": false
           },
           {
-            "label": "Unwichtig",
-            "value": "Unwichtig",
+            "label": "LEGAL",
+            "value": "LEGAL",
+            "selected": false
+          },
+          {
+            "label": "CAR",
+            "value": "CAR",
             "selected": false
           }
         ],
         "jumps": []
       },
       {
+        "question_type": "number",
+        "identifier": "list_12110964",
+        "headline": "What is Phone number?",
+        "description": null,
+        "required": true,
+        "multiple": false,
+        "jumps": [],
+        "validation": {
+          "min": 7,
+          "max": 12
+        }
+      },
+      {
         "question_type": "multiple-choice",
-        "identifier": "list_13913438",
-        "headline": "Möchtest Du den Verlust privater Schlüssel absichern?",
+        "identifier": "list_13907265",
+        "headline": "What is your occupation?",
         "description": null,
         "required": false,
-        "multiple": "false",
+        "multiple": false,
         "choices": [
           {
-            "label": "Ja",
-            "value": "Ja",
+            "label": "employee",
+            "value": "employee",
             "selected": false
           },
           {
-            "label": "Nein",
-            "value": "Nein",
+            "label": "student",
+            "value": "student",
+            "selected": false
+          },
+          {
+            "label": "Buisness Owner",
+            "value": "Buisness Owner",
             "selected": false
           }
         ],

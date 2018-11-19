@@ -2,11 +2,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { Link } from 'react-router-dom';
 import * as survey from '../actions/surey.action';
 import Answer from './Answer';
-import { VERIFY_SURVEY_FORM } from '../utils/survey.constant';
 import ErrorBoundary from '../components/ErrorBoundary';
 
 export class SurveyComponent extends React.Component {
@@ -21,7 +18,6 @@ export class SurveyComponent extends React.Component {
       choices: [],
       input: '',
       currentUpdate: null,
-      ansError: null,
       clickedIndex: null,
     };
   }
@@ -34,7 +30,7 @@ export class SurveyComponent extends React.Component {
   componentDidMount() {
     const { loading } = this.props;
     if (loading) {
-      this.props.surveyFetch()
+      this.props.surveyFetch();
     }
   }
 
@@ -64,7 +60,7 @@ export class SurveyComponent extends React.Component {
     const currentQuetion = quetions[questionIndex] || {};
     const { question_type, multiple } = currentQuetion;
     const { choices } = currentQuetion;
-    const selectCondition = (multiple === 'true');
+    const selectCondition = (multiple === true);
     let choicesForUpdate = [];
 
     if (question_type === 'multiple-choice' && !selectCondition) {
@@ -88,6 +84,12 @@ export class SurveyComponent extends React.Component {
     this.setState({
       clickedIndex: userClickedIndex !== clickedIndex ? userClickedIndex : null,
     });
+    this.props.setCurrentIndex(userClickedIndex);
+  }
+
+  submitForm(e) {
+    this.props.submitForm();
+    this.props.surveyFetch();
   }
 
   clearCurrentAns(event, clearIndex) {
@@ -108,9 +110,10 @@ export class SurveyComponent extends React.Component {
 
     if (required) {
 
-      if (question_type === 'text') {
+      if (question_type === 'text' || question_type === 'number') {
         const { min, max } = validation || {};
         const validateInputLength = ((lastUserInput || "").trim()).length;
+
         if (validateInputLength === 0) {
           message = `Mandatory question`;
         }
@@ -123,12 +126,12 @@ export class SurveyComponent extends React.Component {
         if ((min && max) && (validateInputLength < min || validateInputLength > max)) {
           message = `Required Input length must be in between ${min} & ${max}`;
         }
-      } else if (question_type === 'multiple-choice' && !lastUserInput) {
+      }
+      if (question_type === 'multiple-choice' && !lastUserInput) {
         message = 'Please Aswer the Current Quetion';
       }
     }
-    this.props.updateErrorMessage(questionIndex, message);
-    return !message;
+    return message;
   }
 
   /**
@@ -137,7 +140,7 @@ export class SurveyComponent extends React.Component {
    * else move to immediate next questions to maintain the sequence
    */
   goNext(e, questionIndex) {
-    const { quetions, currentOptionIndex } = this.props;
+    const { quetions, userTravrseQuetions } = this.props;
     const { choices, input, currentUpdate } = this.state;
     const currentQuetion = quetions[questionIndex] || {};
     let nextIndex = questionIndex + 1;
@@ -149,10 +152,11 @@ export class SurveyComponent extends React.Component {
         clickedIndex: null,
       })
       type = 'edit';
-      nextIndex = currentOptionIndex;
+      nextIndex = userTravrseQuetions[userTravrseQuetions.length - 1];
     }
-
-    if (this.validateQuetions(questionIndex)) {
+    const message = this.validateQuetions(questionIndex);
+    this.props.updateErrorMessage(questionIndex, message);
+    if (!message) {
       if (currentQuetion.jumps.length > 0 && !!currentUpdate) {
         // check jump in case of answer exists
         const jumpIndex = (currentQuetion.jumps || [])
@@ -160,11 +164,8 @@ export class SurveyComponent extends React.Component {
         const jumpToIdentifier = currentQuetion.jumps[jumpIndex].destination.id;
         nextIndex = quetions.findIndex(v => v.identifier === jumpToIdentifier);
       }
-
       this.props.goToNextQuetion(nextIndex, choices, input, type);
-
       this.setState({
-        ansError: null,
         currentUpdate: null,
       });
     }
@@ -210,6 +211,7 @@ export class SurveyComponent extends React.Component {
         <ErrorBoundary>
           {quetions.map((quetion, index) =>
             <Answer
+              key={quetion.identifier}
               ansError={quetion.error}
               question={quetion.headline}
               questionIndex={index}
@@ -232,13 +234,13 @@ export class SurveyComponent extends React.Component {
         </ErrorBoundary>
         <div className="survey-navigation">
           <div className="blank-space-10" />
-          <div className={classnames('button', 'hide', { show: nextIndex > totalQuestions })}>
-            <Link
+          <div className={classnames('hide', { show: nextIndex > totalQuestions })}>
+            <button
               className={classnames('submit')}
-              to={VERIFY_SURVEY_FORM}
+              onClick={() => this.submitForm()}
             >
-              Verify & submit
-         </Link>
+              submit & clear
+         </button>
           </div >
         </div>
       </div>
@@ -250,6 +252,7 @@ function mapStateToProps(state) {
   return {
     quetions: (state.surveyReducer.questionnaire || {}).questions || [],
     currentOptionIndex: state.surveyReducer.currentOptionIndex,
+    userTravrseQuetions: state.surveyReducer.userTravrseQuetions || [],
     error: state.surveyReducer.error,
     loading: state.surveyReducer.loading,
   }
@@ -264,7 +267,9 @@ function mapDispatchToProps(dispatch) {
     clearCurrentAns: (indexToClear) => dispatch(survey.clearCurrentAns(indexToClear)),
     goToPreviousQuetion: (currentIndex) => { dispatch(survey.goToPreviousQuetion(currentIndex)) },
     updateAnswers: (index, choices, input) => { dispatch(survey.updateAnswers(index, choices, input)) },
-    updateErrorMessage: (index, errorMessage) => { dispatch(survey.updateErrorMessage(index, errorMessage)) }
+    updateErrorMessage: (index, errorMessage) => { dispatch(survey.updateErrorMessage(index, errorMessage)) },
+    submitForm: () => { dispatch(survey.submitForm()) },
+    setCurrentIndex: (index) => { dispatch(survey.setCurrentIndex(index)) }
   }
 }
 

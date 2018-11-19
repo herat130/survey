@@ -3,24 +3,24 @@ import React from 'react';
 export default class InputAnswer extends React.Component {
 
   renderInputField() {
-    const { input , questionIndex} = this.props;
+    const { input, fieldType, questionIndex } = this.props;
     return (
       <input
         key={'renderInput'}
-        type='text'
+        type={fieldType}
         value={input}
-        onChange={(e) => this.props.handleChangeOptions(e,questionIndex)}
+        onChange={(e) => this.props.handleChangeOptions(e, questionIndex)}
       />
     )
   }
 
   renderTextArea() {
-    const { input , questionIndex } = this.props;
+    const { input, questionIndex } = this.props;
     return (
       <textarea
         key={'renderArea'}
         value={input}
-        onChange={(e) => this.props.handleChangeOptions(e,questionIndex)}
+        onChange={(e) => this.props.handleChangeOptions(e, questionIndex)}
       />
     )
   }

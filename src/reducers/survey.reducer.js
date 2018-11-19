@@ -51,12 +51,16 @@ export default function (state = initialState, action) {
         currentOptionIndex: state.userTravrseQuetions[movingIndex],
       });
     case survey.SUBMIT_FORM:
-      return Object.assign({}, initialState);
+      return Object.assign({}, state, {
+        loading: true,
+        questionnaire: {},
+        error: false,
+        userTravrseQuetions: [0],
+        currentOptionIndex: 0
+      });
     case survey.CLEAR_ANSWER:
       questions = [...state.questionnaire.questions];
-      questions[action.payload.clearIndex].choices = questions[action.payload.clearIndex].choices.map(v => {
-        return Object.assign({}, v, { selected: false })
-      });
+      questions[action.payload.clearIndex].choices = questions[action.payload.clearIndex].choices.map(v => Object.assign({}, v, { selected: false }));
       questions[action.payload.clearIndex].input = '';
       updatedQuestionnaire = Object.assign({}, state.questionnaire, { questions });
       return Object.assign({}, state, { questionnaire: updatedQuestionnaire });
@@ -65,6 +69,8 @@ export default function (state = initialState, action) {
       questions[action.payload.index].error = action.payload.errorMessage;
       updatedQuestionnaire = Object.assign({}, state.questionnaire, { questions });
       return Object.assign({}, state, { questionnaire: updatedQuestionnaire });
+    case survey.CHANGE_INDEX:
+      return Object.assign({}, state, { currentOptionIndex: action.payload.index });
     default:
       return state;
   }

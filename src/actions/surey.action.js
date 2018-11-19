@@ -68,3 +68,10 @@ export function submitForm() {
     type: survey.SUBMIT_FORM,
   }
 }
+
+export function setCurrentIndex(index) {
+  return {
+    type: survey.CHANGE_INDEX,
+    payload: { index }
+  }
+}

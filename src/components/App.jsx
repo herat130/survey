@@ -1,13 +1,10 @@
 import React from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
 // eslint-disable-next-line import/extensions
 import 'milligram';
 import classnames from 'classnames';
 import SurveyComponent from './SurveyComponent';
-import * as route from '../utils/survey.constant';
 import Header from './Header';
 import Footer from './Footer';
-import VerifySurveyComponent from './VerifySurveyComponent';
 
 class App extends React.Component {
   componentDidMount() {
@@ -17,15 +14,11 @@ class App extends React.Component {
     return (
       <div className={classnames('wrapper')}>
         <Header />
-        <Switch>
-          <Route path={route.VERIFY_SURVEY_FORM} component={VerifySurveyComponent} />
-          <Route path={route.HOME_PAGE} component={SurveyComponent} />
-          {/* <Route path="*" component={SurveyComponent} /> */}
-        </Switch>
+        <SurveyComponent />
         <Footer />
       </div>
     )
   }
 }
 
-export default withRouter(App);
+export default App;

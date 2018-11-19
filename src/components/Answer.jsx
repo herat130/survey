@@ -3,7 +3,6 @@ import React from 'react';
 import classnames from 'classnames';
 import MultipleChoice from './MultipleChoice';
 import InputAnswer from './InputAnswer';
-import checkInputAvailable from '../utils/common';
 
 export default class Answer extends React.Component {
 
@@ -19,11 +18,12 @@ export default class Answer extends React.Component {
         type={!multiple ? 'radio' : 'checkbox'}
         choices={choices}
       />
-    } else if (type === 'text') {
+    } else if (type === 'text' || type === 'number') {
       // considering multiline property true should be textarea option
       // considering multilie property false should be text option
       componentToBeRender = <InputAnswer
         type={!multiline ? 'text' : 'textarea'}
+        fieldType={type}
         input={input}
         questionIndex={questionIndex}
         handleChangeOptions={this.props.handleChangeOptions}
@@ -37,7 +37,7 @@ export default class Answer extends React.Component {
     return (
       <div
         onClick={() => this.props.handleCollapsible(questionIndex)}
-        className={classnames('collapsable', 'hide', { show: checkInputAvailable(input) && ansSubmitted })}
+        className={classnames('collapsable', 'hide', { show: ansSubmitted })}
       >
         <span className={classnames('column-5', 'question')}>
           {question}
